@@ -126,3 +126,7 @@ dig sigfail.verteiltesysteme.net @127.0.0.1 -p 5353
 dig sigok.verteiltesysteme.net @127.0.0.1 -p 5353
 The first command should give a status report of SERVFAIL and no IP address. The second should give NOERROR plus an IP address.
 
+
+
+
+source: https://docs.pi-hole.net/guides/unbound/
