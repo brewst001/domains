@@ -1,5 +1,5 @@
-an additional note to the original post, with the ever growing security risks imposed by DNS poisoning and bad domains out there, it is very beneficial from a security standpoint to run and maintain your own DNS and DNS blacklist.
-
+An additional note to the original post, with the ever growing security risks imposed by DNS poisoning and bad domains out there, it is very beneficial from a security standpoint to run and maintain your own DNS and DNS blacklist.
+=======================================================================================================================
 
 
 
