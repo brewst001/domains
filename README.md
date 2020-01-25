@@ -1,6 +1,6 @@
 An additional note to the original post. 
 ==========================================
-With the ever growing security risks imposed by DNS poisoning and bad domains out there, it is very beneficial from a security standpoint to run and maintain your own DNS and DNS blacklist. 
+With the ever growing security risks imposed by DNS poisoning and bad domains out there, it is very beneficial from a security standpoint to run and maintain your own DNS and DNS blacklist. This can help prevent tracking and redirects to malicious domains such as scareware or c2 servers that resolve to domain names.
 
 
 
