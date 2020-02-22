@@ -1,3 +1,9 @@
+so this post was copied from https://docs.pi-hole.net/guides/unbound/ in the event it is unlisted/removed. this will be updated in response to any pihole version changes as people i personnaly know depend on these instructions.
+
+additionally. reason you should use DoT and not DoH for your DNSSEC:
+https://www.zdnet.com/article/dns-over-https-causes-more-problems-than-it-solves-experts-say/
+
+
 An additional note to the original post. 
 ==========================================
 With the ever growing security risks imposed by DNS poisoning and bad domains out there, it is very beneficial from a security standpoint to run and maintain your own DNS and DNS blacklist. This can help prevent tracking and redirects to malicious domains such as scareware or c2 servers that resolve to domain names.
