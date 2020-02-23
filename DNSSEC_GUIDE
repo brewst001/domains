@@ -1,0 +1,65 @@
+I have noticed quite a few people actually care about their DNS privacy. The majority of users on this sub Reddit are all about DoH(DNS over HTTPS). I think this may be a product of what the "industry" is saying to use. The people/companies recommending this are generally not looking to actually protect you. The large companies are telling you to use it to seem like they are being the good guy and offering a form of security to you when they know they can already exploit it and still make money from your data. DoH, unfortunately, has become marketable.
+
+The majority of the people restating the information are not being misleading, they are just seeing what looks like a good idea and trying to help others with DNSSEC. It makes me happy to see so many people concerned with security today as most people and organizations just want their services to work. security has usually been an after thought.
+
+
+
+Besides those points. I will post an article, which has really good information from well know experts, that explains why DoH is bad.
+
+https://www.zdnet.com/article/dns-over-https-causes-more-problems-than-it-solves-experts-say/
+The article is not short, but if you are already looking for a DNSSEC solution, I believe you will put the time in to read it. - you don't have to get very far before red flags start popping up about DoH.
+
+As someone who deals with enterprise security, DoH is a nightmare. I investigate any system using it as it directly circumvents my ability to monitor threats on the network. Don't want me to have your box re imaged? Don't use DoH at work. Unfortunately, this is the point I am at already with this garbage protocol.
+
+When it comes to DNSSEC. Your biggest concern is most likely privacy. A good solution to this would be to run your own DNS server on your already functioning pi-hole device. This task may seem daunting at first, but I can assure you it is not difficult. If you can manage to get the Pi-Hole software working with your network, you can install and manage the DNS server just fine. A good guide to follow is listed below. This method will remove any middle men in the DNS transaction. This makes it difficult for ISP's and large corporations, who trying to harvest your data for money(google), from taking and tracking said data. DNSSEC should be enabled already if you configure the file within Unbound's folder structure, as the guide instructs. - I believe? It's been a while. If there are issues, I'll update the post.
+
+EDIT: DNSSEC is the default install with an unbound installation. The Pi-Hole guide sets this additional configuration line (redundant because the default configuration is yes anyway). - courtesy of jfb-pihole
+
+https://docs.pi-hole.net/guides/unbound/
+Below is a link showing when the root servers enabled DNSSEC
+
+https://www.root-dnssec.org/2010/07/16/status-update-2010-07-16/
+Below are some sites that test DNSSEC if you are unfamiliar with the dig command in UNIX/LINUX
+
+http://www.dnssec.cz/ should show a green key
+
+http://www.rhybar.cz/ should not be reachable
+
+https://dnssec.vs.uni-due.de/
+
+If DNSSEC is not working and the certs are the issue, a method to re-obtain the certificates is by running this command
+
+apt install unbound ca-certificates
+I have not seen this happen in a while but some devices may not retrieve the certs.(installed on a laptop once. certs were skipped for some reason)
+
+
+
+This section will contain some troubleshooting tips for Pi-Hole itself. This section covers one of the biggest issues I have seen most users have when they install Pi-Hole
+
+Most ISP routers will not let you designate a DNS server on local or let alone private IP space. This aggravates me quite a bit. To ensure your queries are sent to Pi-Hole first. there a only a few simple steps you need to take.
+
+Set the static IP from the Pi-Hole installation in your router's static IP section. each model is different. you may have to google how to do this if you are unfamiliar. If you are currently running DHCP and it is listed, most routers have a function to add it by clicking on the device and setting as static.(checking a box, hitting a plus sign, etc)
+
+Turn off DHCP on the router itself. If you can still access the Pi-Hole while DHCP is disabled on the router, you should be fine to move onto the next step. Remember, DHCP entries can remain cached and a reset of the router would be the simplest way to ensure the cache is gone. At this time devices on your network may have issues using network services.
+
+Turn on DHCP within the Pi-Hole web interface. Ensure to use a network range that doesn't include your routers IP address. The gateway field below the network range needs to be your routers IP address. In enterprise networks, I've seen the inside interface of the first layer 3 hop work as long as routing is configured properly in said layer 3 device(Router, layer 3 switch, FW, etc.) If that last sentence didn't make any sense, ignore it, it isn't for you.
+
+Now check to make sure your devices can use network services. You may have to restart the device(easiest for average user) or use a method like release renew to clear IP information.
+
+If those steps worked for you, you should start seeing queries in the query log section of the Pi-Hole dashboard. If not, make sure none of your devices are using another DNS service.(had to block all other DNS IP addresses within IP tables in DDWRT as family members and roommates all had DNS settings set to google or cloudflare, manually.) I have mine set to only show blocked queries as some CDN's that are also used for legitimate resources end up in lists.(Oh the beauty of cloud infrastructure and shared resources. amirite?)
+
+That's it. Thanks for getting this far in my attempt to help better secure people's DNS information. I want to express my gratitude to the dev's of the software. As someone who started in cyber security a few years ago, this platform greatly enhanced my knowledge of how DNS works. It has helped me become a lot more desirable in this field. Might have to donate to the cause again.
+
+If anyone is interested, below are some additional links.
+
+block list page that has a lot of lists to choose from:
+
+https://blocklist.site/app/
+My GitHub: Comment for the link. I have been working on a few tools and malware domain lists as time becomes available to update them. - If enough people ask, I'll put the link here, Don't like plugging my own stuff.
+
+Check if your Pi-Hole is open to the world. - check ports 53, 443, and 853. Or whatever ports you are concerned about. DNS is an easy target for most attackers and should not be accessible from the internet. If a port is open that shouldn't be, go into your router and ensure it is not in your port forward list. Or google how to block ports with your specific model. I explicitly block all 53 requests that come in and try to leave my network. My raspberry Pi is the only device allowed to communicate out over 853.
+
+https://www.whatismyip.com/port-scanner/
+Additional sources:
+
+https://feeding.cloud.geek.nz/posts/setting-up-your-own-dnssec-aware/
