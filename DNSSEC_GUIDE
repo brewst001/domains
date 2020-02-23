@@ -1,19 +1,7 @@
-I have noticed quite a few people actually care about their DNS privacy. The majority of users on this sub Reddit are all about DoH(DNS over HTTPS). I think this may be a product of what the "industry" is saying to use. The people/companies recommending this are generally not looking to actually protect you. The large companies are telling you to use it to seem like they are being the good guy and offering a form of security to you when they know they can already exploit it and still make money from your data. DoH, unfortunately, has become marketable.
-
-The majority of the people restating the information are not being misleading, they are just seeing what looks like a good idea and trying to help others with DNSSEC. It makes me happy to see so many people concerned with security today as most people and organizations just want their services to work. security has usually been an after thought.
-
-
-
-Besides those points. I will post an article, which has really good information from well know experts, that explains why DoH is bad.
 
 https://www.zdnet.com/article/dns-over-https-causes-more-problems-than-it-solves-experts-say/
 The article is not short, but if you are already looking for a DNSSEC solution, I believe you will put the time in to read it. - you don't have to get very far before red flags start popping up about DoH.
 
-As someone who deals with enterprise security, DoH is a nightmare. I investigate any system using it as it directly circumvents my ability to monitor threats on the network. Don't want me to have your box re imaged? Don't use DoH at work. Unfortunately, this is the point I am at already with this garbage protocol.
-
-When it comes to DNSSEC. Your biggest concern is most likely privacy. A good solution to this would be to run your own DNS server on your already functioning pi-hole device. This task may seem daunting at first, but I can assure you it is not difficult. If you can manage to get the Pi-Hole software working with your network, you can install and manage the DNS server just fine. A good guide to follow is listed below. This method will remove any middle men in the DNS transaction. This makes it difficult for ISP's and large corporations, who trying to harvest your data for money(google), from taking and tracking said data. DNSSEC should be enabled already if you configure the file within Unbound's folder structure, as the guide instructs. - I believe? It's been a while. If there are issues, I'll update the post.
-
-EDIT: DNSSEC is the default install with an unbound installation. The Pi-Hole guide sets this additional configuration line (redundant because the default configuration is yes anyway). - courtesy of jfb-pihole
 
 https://docs.pi-hole.net/guides/unbound/
 Below is a link showing when the root servers enabled DNSSEC
