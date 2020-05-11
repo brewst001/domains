@@ -145,3 +145,42 @@ They should already be there, but I have had issues on some devices.
 
 
 source: https://docs.pi-hole.net/guides/unbound/
+
+just to re iterate, this method does not enable DNS over TLS. The root servers do not support TLS at this time. project link below.
+https://datatracker.ietf.org/wg/dprive/about/
+
+#####WIP
+This next section will have you enable a forwarder for DNS over TLS. as the root servers do not support TLS at this time.
+I havent performed this as i am holding out for DoT on the root servers. I do not trust cloudflare/anyone with my DNS traffic.
+
+
+Update the certificates with: sudo update-ca-certificates
+
+Modify the configuration file /etc/unbound/unbound.conf as follows:
+
+server:
+    port: 853
+    tls-upstream: yes                                          
+    tls-cert-bundle: "/etc/ssl/certs/ca-certificates.crt"
+
+forward-zone:
+    name: "."
+    forward-addr: 1.1.1.1
+    
+    
+
+
+####The above IP is for cloudflare.
+#The above port is for CLOUDFLARE
+
+Test with dig @::1 -p 853 google.com or any other site that supports DoT
+
+dig @::1 -p 853 google.com
+
+
+Check DNS-Traffic
+Make a DNS request by using nslookup for google.com while capturing the traffic with Wireshark. - windows users. this ensures end systems are using DoT
+
+ripped from https://blog.cyclemap.link/2020-01-11-unbound/
+working on a better writeup for those not versed in system configuration.
+######WIP
