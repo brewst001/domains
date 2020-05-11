@@ -179,6 +179,7 @@ dig @::1 -p 853 google.com
 
 
 Check DNS-Traffic
+
 Make a DNS request by using nslookup for google.com while capturing the traffic with Wireshark. - windows users. this ensures end systems are using DoT
 
 ripped from https://blog.cyclemap.link/2020-01-11-unbound/
