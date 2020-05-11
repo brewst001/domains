@@ -62,19 +62,23 @@ We will use unbound, a secure open source recursive DNS server primarily develop
 
 
 sudo apt install unbound
-Important: Download the current root hints file (the list of primary root servers which are serving the domain "." - the root domain). Update it roughly every six months. Note that this file changes infrequently.
 
+#Important: Download the current root hints file (the list of primary root servers which are serving the domain "." - the root domain). Update it roughly every six months. Note that this file changes infrequently.
 
 wget -O root.hints https://www.internic.net/domain/named.root
+
 sudo mv root.hints /var/lib/unbound/
-Configure unbound¶
-Highlights:
+
+Configure unbound
+
+#Highlights:
 
 Listen only for queries from the local Pi-hole installation (on port 5353)
 Listen for both UDP and TCP requests
 Verify DNSSEC signatures, discarding BOGUS domains
 Apply a few security and privacy tricks
-/etc/unbound/unbound.conf.d/pi-hole.conf:
+
+This next section has you edit the file loacted at: /etc/unbound/unbound.conf.d/pi-hole.conf
 
 
 server:
@@ -87,10 +91,10 @@ server:
     do-udp: yes
     do-tcp: yes
 
-    # May be set to yes if you have IPv6 connectivity
+    # set to yes if you have IPv6 connectivity or have IPv6 issues. I disable IPv6 at my router.
     do-ip6: no
 
-    # Use this only when you downloaded the list of primary root servers!
+    # Use this only when you downloaded the list of primary root servers! - which you should have done in the previous step.
     root-hints: "/var/lib/unbound/root.hints"
 
     # Trust glue only if it is within the servers authority
@@ -111,7 +115,7 @@ server:
     # This only applies to domains that have been frequently queried
     prefetch: yes
 
-    # One thread should be sufficient, can be increased on beefy machines. In reality for most users running on small networks or on a single machine it should be unnecessary to seek performance enhancement by increasing num-threads above 1.
+    # One thread should be sufficient, can be increased on beefy machines. usually not needed
     num-threads: 1
 
     # Ensure kernel buffer is large enough to not lose messages in traffic spikes
@@ -139,14 +143,16 @@ dig sigfail.verteiltesysteme.net @127.0.0.1 -p 5353
 dig sigok.verteiltesysteme.net @127.0.0.1 -p 5353
 The first command should give a status report of SERVFAIL and no IP address. The second should give NOERROR plus an IP address.
 
-If DNSSEC is not working, run 
+If DNSSEC is not working, run:
+ 
 apt install unbound ca-certificates
+
 They should already be there, but I have had issues on some devices.
 
 
 source: https://docs.pi-hole.net/guides/unbound/
 
-just to re iterate, this method does not enable DNS over TLS. The root servers do not support TLS at this time. project link below.
+Just to re iterate, this method does not enable DNS over TLS. The root servers do not support TLS at this time. project link below.
 https://datatracker.ietf.org/wg/dprive/about/
 
 #####WIP
