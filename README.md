@@ -27,7 +27,11 @@ The usual path is as follows:
 Your system > local resolver > Root server > TLD(Top Level Domain Server) > Authoratative server
 
 A recursive server is usually your ISP's DNS server. It is what your system contacts for DNS information. Most users change this to google's 8.8.8.8 without knowing why.
-When you try to go to a domain like github_com, your system will check its local cache to determine if it has IP information for the domain name. If it does not, it will contact whatever it has set to its local resolver. If the local resolver has it cached, it will provide your system with that information. If it is not cached, the local resolver will then contact a root DNS server to determine the next server to contact. Your local resolver will then contact the top level domain server provided by the root server. The TLD will then direct your local resolver to the proper authoratative server for the domain. Your local resolver will contact the authoratative server and then be provided with the IP information. Your local resolver will provide your system with the IP address of the web server's(github_com) IP address. Your local resolver will then cache that data for a specific amount of time. Your system may also cache this information.
+>When you try to go to a domain like github_com, your system will check its local cache to determine if it has IP information for the domain name. If it does not, it will contact whatever it has set to its local resolver. 
+>If the local resolver has it cached, it will provide your system with that information. If it is not cached, the local resolver will then contact a root DNS server to determine the next server to contact. 
+>Your local resolver will then contact the top level domain server provided by the root server. The TLD will then direct your local resolver to the proper authoratative server for the domain. 
+>Your local resolver will contact the authoratative server and then be provided with the IP information. Your local resolver will provide your system with the IP address of the web server's(github_com) IP address. 
+>Your local resolver will then cache that data for a specific amount of time. Your system may also cache this information.
 
 seems confusing. It is why i provided the visual above the paragraph. A more specific step by step one below.
 
