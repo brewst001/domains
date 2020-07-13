@@ -21,7 +21,7 @@ Furthermore, from the point of an attacker, the DNS servers of larger providers 
 
 When you operate your own ecursive DNS server, then the likeliness of getting affected by such an attack is greatly reduced. This makes me stress the importance of not having your DNS server publicly visible. An example would be port forwarding. You should never port forward port 53. There is not real reason to ever have to perform this function. This creates a large attack surface for your network and makes you a target.
 
-What is a recursive DNS server?This can be referred to as a local resolver.¶ 
+What is a recursive DNS server?This can be referred to as a local resolver.
 The usual path is as follows:
 
 Your system > local resolver > Root server > TLD(Top Level Domain Server) > Authoratative server
@@ -41,7 +41,7 @@ Graphic edited. From cloudflare.
 
 ![DNS Tree](https://i.imgur.com/LohDSeF.png)
 
-What does this guide provide?¶
+What does this guide provide?
 This guide provides instructions on how to setup your own local resolver using the device you already use for the Pi-Hole software. If you are starting fresh, I find starting with unbound before installing Pi-Hole is easier.
 
 This guide assumes a fairly recent Debian/Ubuntu based system and will use the maintainer provided packages for installation to make it an incredibly simple process. It assumes only very basic knowledge of how DNS works.
@@ -62,7 +62,7 @@ Benefit: Privacy - as you're directly contacting the responsive servers, no serv
 
 Drawback: Traversing the path may be slow, especially for the first time you visit a website. By slow, I mean usually around one second instead of a few miliseconds. Most commonly used sites are cached in several locations.
 
-Setting up Pi-hole as a recursive DNS server solution¶
+Setting up Pi-hole as a recursive DNS server solution
 We will use unbound, a secure open source recursive DNS server primarily developed by NLnet Labs, VeriSign Inc., Nominet, and Kirei. The first thing you need to do is to install the recursive DNS resolver:
 
 
@@ -140,7 +140,7 @@ Start your local recursive server and test that it's operational:
 `dig pi-hole.net @127.0.0.1 -p 5353`
 The first query may be quite slow, but subsequent queries, also to other domains under the same TLD, should be fairly quick.
 
-Test validation¶
+Test validation
 You can test DNSSEC validation using
 
 `dig sigfail.verteiltesysteme.net @127.0.0.1 -p 5353`
