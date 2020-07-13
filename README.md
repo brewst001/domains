@@ -71,9 +71,9 @@ We will use unbound, a secure open source recursive DNS server primarily develop
 
 #Important: Download the current root hints file (the list of primary root servers which are serving the domain "." - the root domain). Update it roughly every six months. Note that this file changes infrequently.
 
-`<addr>`wget -O root.hints https://www.internic.net/domain/named.root
+`wget -O root.hints https://www.internic.net/domain/named.root`
 
-`<addr>`sudo mv root.hints /var/lib/unbound/
+`sudo mv root.hints /var/lib/unbound/`
 
 Configure unbound
 
@@ -137,21 +137,20 @@ server:
 Start your local recursive server and test that it's operational:
 
 
-`<addr>`sudo service unbound start
-`<addr>`dig pi-hole.net @127.0.0.1 -p 5353
+`sudo service unbound start`
+`dig pi-hole.net @127.0.0.1 -p 5353`
 The first query may be quite slow, but subsequent queries, also to other domains under the same TLD, should be fairly quick.
 
 Test validation¶
 You can test DNSSEC validation using
 
-
-`<addr>`dig sigfail.verteiltesysteme.net @127.0.0.1 -p 5353
-`<addr>`dig sigok.verteiltesysteme.net @127.0.0.1 -p 5353
+`dig sigfail.verteiltesysteme.net @127.0.0.1 -p 5353`
+`dig sigok.verteiltesysteme.net @127.0.0.1 -p 5353`
 The first command should give a status report of SERVFAIL and no IP address. The second should give NOERROR plus an IP address.
 
 If DNSSEC is not working, run:
  
-`<addr>`apt install unbound ca-certificates
+`apt install unbound ca-certificates`
 
 They should already be there, but I have had issues on some devices.
 
@@ -168,7 +167,7 @@ I havent performed this as i am holding out for DoT on the root servers. I do no
 
 Update the certificates with: 
 
-`<addr>`sudo update-ca-certificates
+`sudo update-ca-certificates`
 
 Modify the configuration file /etc/unbound/unbound.conf as follows:
 
@@ -189,9 +188,9 @@ forward-zone:
 
 Test with 
 
-`<addr>`dig @::1 -p 853 google.com or any other site that supports DoT
+`dig @::1 -p 853 google.com or any other site that supports DoT`
 
-`<addr>`dig @::1 -p 853 google.com
+`dig @::1 -p 853 google.com`
 
 
 Check DNS-Traffic
