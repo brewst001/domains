@@ -67,7 +67,7 @@ Setting up Pi-hole as a recursive DNS server solution¶
 We will use unbound, a secure open source recursive DNS server primarily developed by NLnet Labs, VeriSign Inc., Nominet, and Kirei. The first thing you need to do is to install the recursive DNS resolver:
 
 
-`<sudo apt install unbound>`
+`<addr>`sudo apt install unbound`<addr>`
 
 #Important: Download the current root hints file (the list of primary root servers which are serving the domain "." - the root domain). Update it roughly every six months. Note that this file changes infrequently.
 
