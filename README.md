@@ -39,7 +39,7 @@ local resolver > Your system
 
 Graphic edited. From cloudflare.
 
-![DNS Tree](imgur.com/a/QrkcAPe)
+![DNS Tree](https://imgur.com/a/QrkcAPe)
 
 What does this guide provide?¶
 This guide provides instructions on how to setup your own local resolver using the device you already use for the Pi-Hole software. If you are starting fresh, I find starting with unbound before installing Pi-Hole is easier.
