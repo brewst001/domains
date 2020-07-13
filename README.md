@@ -1,4 +1,4 @@
-so this post was copied from https://docs.pi-hole.net/guides/unbound/ in the event it is unlisted/removed. this will be updated in response to any pihole version changes as people i personnaly know depend on these instructions.
+so this post was copied from https://docs.pi-hole.net/guides/unbound/ in the event it is unlisted/removed. this will be updated in response to any pihole version changes as people i personnaly know depend on these instructions. I have recently modified this using terminology others may find helpful when being instructed on how DNS works.
 
 additionally. reason you should use DoT and not DoH for your DNSSEC:
 https://www.zdnet.com/article/dns-over-https-causes-more-problems-than-it-solves-experts-say/
@@ -12,62 +12,68 @@ With the ever growing security risks imposed by DNS poisoning and bad domains ou
 
 
 Pi-hole as All-Around DNS Solution
-The problem: Whom can you trust?
+The problem: You can't trust anyone.
 
 
-Pi-hole includes a caching and forwarding DNS server, now known as FTLDNS. After applying the blocking lists, it forwards requests made by the clients to configured upstream DNS server(s). However, as has been mentioned by several users in the past, this leads to some privacy concerns as it ultimately raises the question: Whom can you trust? Recently, more and more small (and not so small) DNS upstream providers have appeared on the market, advertising free and private DNS service, but how can you know that they keep their promises? Right, you can't.
+Pi-hole is a tool used to prevent netowrk traffic from traversing to domains you specify. This mainly consists of advertisement and tracking domains, by default.
 
-Furthermore, from the point of an attacker, the DNS servers of larger providers are very worthwhile targets, as they only need to poison one DNS server, but millions of users might be affected. Instead of your bank's actual IP address, you could be sent to a phishing site hosted on some island. This scenario has already happened and it isn't unlikely to happen again...
+Furthermore, from the point of an attacker, the DNS servers of larger providers are very worthwhile targets, as they only need to poison one DNS server, but millions of users might be affected. Instead of your bank's actual IP address, you could be sent to a phishing site hosted on some island. This scenario has already happened and it isn't unlikely to happen again...[From source]
 
-When you operate your own (tiny) recursive DNS server, then the likeliness of getting affected by such an attack is greatly reduced.
+When you operate your own ecursive DNS server, then the likeliness of getting affected by such an attack is greatly reduced. This makes me stress the importance of not having your DNS server publicly visible. An example would be port forwarding. You should never port forward port 53. There is not real reason to ever have to perform this function. This creates a large attack surface for your network and makes you a target.
 
-What is a recursive DNS server?¶
-The first distinction we have to be aware of is whether a DNS server is authoritative or not. If I'm the authoritative server for, e.g., pi-hole.net, then I know which IP is the correct answer for a query. Recursive name servers, in contrast, resolve any query they receive by consulting the servers authoritative for this query by traversing the domain. Example: We want to resolve pi-hole.net. On behalf of the client, the recursive DNS server will traverse the path of the domain across the Internet to deliver the answer to the question.
+What is a recursive DNS server?This can be referred to as a local resolver.¶ 
+The usual path is as follows:
+
+Your system > local resolver > Root server > TLD(Top Level Domain Server) > Authoratative server
+
+A recursive server is usually your ISP's DNS server. It is what your system contacts for DNS information. Most users change this to google's 8.8.8.8 without knowing why.
+When you try to go to a domain like github_com, your system will check its local cache to determine if it has IP information for the domain name. If it does not, it will contact whatever it has set to its local resolver. If the local resolver has it cached, it will provide your system with that information. If it is not cached, the local resolver will then contact a root DNS server to determine the next server to contact. Your local resolver will then contact the top level domain server provided by the root server. The TLD will then direct your local resolver to the proper authoratative server for the domain. Your local resolver will contact the authoratative server and then be provided with the IP information. Your local resolver will provide your system with the IP address of the web server's(github_com) IP address. Your local resolver will then cache that data for a specific amount of time. Your system may also cache this information.
+
+seems confusing. It is why i provided the visual above the paragraph. A more specific step by step one below.
+
+Your system > local resolver
+local resolver > root server provides an answer to a TLD
+local resolver > TLD which provides Authoratative server information
+local resolver > Authoratative which provides IP address information
+local resolver > Your system
+
+Graphic edited. From cloudflare.
+
+![DNS Tree](https://imgur.com/a/QrkcAPe)
+Format: ![Alt Text](url)
 
 What does this guide provide?¶
-In only a few simple steps, we will describe how to set up your own recursive DNS server. It will run on the same device you're already using for your Pi-hole. There are no additional hardware requirements.
+This guide provides instructions on how to setup your own local resolver using the device you already use for the Pi-Hole software. If you are starting fresh, I find starting with unbound before installing Pi-Hole is easier.
 
 This guide assumes a fairly recent Debian/Ubuntu based system and will use the maintainer provided packages for installation to make it an incredibly simple process. It assumes only very basic knowledge of how DNS works.
 
 A standard Pi-hole installation will do it as follows:
 
-Your client asks the Pi-hole Who is pi-hole.net?
-Your Pi-hole will check its cache and reply if the answer is already known.
-Your Pi-hole will check the blocking lists and reply if the domain is blocked.
+Your client asks the Pi-hole Who is github_com?
+Your Pi-hole will check its cache and reply if the answer is already known.(which could include the block result)
+Your Pi-hole will check the blocking lists and reply if the domain is blocked.(if unknown and not cahced)
 Since neither 2. nor 3. is true in our example, the Pi-hole forwards the request to the configured external upstream DNS server(s).
 Upon receiving the answer, your Pi-hole will reply to your client and tell it the answer of its request.
 Lastly, your Pi-hole will save the answer in its cache to be able to respond faster if any of your clients queries the same domain again.
 After you set up your Pi-hole as described in this guide, this procedure changes notably:
 
-Your client asks the Pi-hole Who is pi-hole.net?
-Your Pi-hole will check its cache and reply if the answer is already known.
-Your Pi-hole will check the blocking lists and reply if the domain is blocked.
-Since neither 2. nor 3. is true in our example, the Pi-hole delegates the request to the (local) recursive DNS resolver.
-Your recursive server will send a query to the DNS root servers: "Who is handling .net?"
-The root server answers with a referral to the TLD servers for .net.
-Your recursive server will send a query to one of the TLD DNS servers for .net: "Who is handling pi-hole.net?"
-The TLD server answers with a referral to the authoritative name servers for pi-hole.net.
-Your recursive server will send a query to the authoritative name servers: "What is the IP of pi-hole.net?"
-The authoritative server will answer with the IP address of the domain pi-hole.net.
-Your recursive server will send the reply to your Pi-hole which will, in turn, reply to your client and tell it the answer of its request.
-Lastly, your Pi-hole will save the answer in its cache to be able to respond faster if any of your clients queries the same domain again.
-You can easily imagine even longer chains for subdomains as the query process continues until your recursive resolver reaches the authoritative server for the zone that contains the queried domain name. It is obvious that the methods are very different and the own recursion is more involved than "just" asking some upstream server. This has benefits and drawbacks:
+Having a local resolver works like talked about before, but having Pi-Hole installed adds a few steps talked about directly above this line.
 
-Benefit: Privacy - as you're directly contacting the responsive servers, no server can fully log the exact paths you're going, as e.g. the Google DNS servers will only be asked if you want to visit a Google website, but not if you visit the website of your favorite newspaper, etc.
+Benefit: Privacy - as you're directly contacting the responsive servers, no server can fully log the exact paths you're going, as e.g. the Google DNS servers will only be asked if you want to visit a Google website, but not if you visit the website of your favorite newspaper, etc. Remember, as the whole path to the authoratative server is not encrypted, Your ISP can still observe this traffic if they chose to do so. Hiring personnel to do this is unfeasable, but with the advent of better AI platforms, it will get easier for them to do so if they so choose.
 
-Drawback: Traversing the path may be slow, especially for the first time you visit a website - while the bigger DNS providers always have answers for commonly used domains in their cache, you will have to transverse the path if you visit a page for the first time time. A first request to a formerly unknown TLD may take up to a second (or even more if you're also using DNSSEC). Subsequent requests to domains under the same TLD usually complete in < 0.1s. Fortunately, both your Pi-hole as well as your recursive server will be configured for efficient caching to minimize the number of queries that will actually have to be performed.
+Drawback: Traversing the path may be slow, especially for the first time you visit a website. By slow, I mean usually around one second instead of a few miliseconds. Most commonly used sites are cached in several locations.
 
 Setting up Pi-hole as a recursive DNS server solution¶
 We will use unbound, a secure open source recursive DNS server primarily developed by NLnet Labs, VeriSign Inc., Nominet, and Kirei. The first thing you need to do is to install the recursive DNS resolver:
 
 
-sudo apt install unbound
+`<addr>`sudo apt install unbound
 
 #Important: Download the current root hints file (the list of primary root servers which are serving the domain "." - the root domain). Update it roughly every six months. Note that this file changes infrequently.
 
-wget -O root.hints https://www.internic.net/domain/named.root
+`<addr>`wget -O root.hints https://www.internic.net/domain/named.root
 
-sudo mv root.hints /var/lib/unbound/
+`<addr>`sudo mv root.hints /var/lib/unbound/
 
 Configure unbound
 
@@ -131,21 +137,21 @@ server:
 Start your local recursive server and test that it's operational:
 
 
-sudo service unbound start
-dig pi-hole.net @127.0.0.1 -p 5353
+`<addr>`sudo service unbound start
+`<addr>`dig pi-hole.net @127.0.0.1 -p 5353
 The first query may be quite slow, but subsequent queries, also to other domains under the same TLD, should be fairly quick.
 
 Test validation¶
 You can test DNSSEC validation using
 
 
-dig sigfail.verteiltesysteme.net @127.0.0.1 -p 5353
-dig sigok.verteiltesysteme.net @127.0.0.1 -p 5353
+`<addr>`dig sigfail.verteiltesysteme.net @127.0.0.1 -p 5353
+`<addr>`dig sigok.verteiltesysteme.net @127.0.0.1 -p 5353
 The first command should give a status report of SERVFAIL and no IP address. The second should give NOERROR plus an IP address.
 
 If DNSSEC is not working, run:
  
-apt install unbound ca-certificates
+`<addr>`apt install unbound ca-certificates
 
 They should already be there, but I have had issues on some devices.
 
@@ -160,7 +166,9 @@ This next section will have you enable a forwarder for DNS over TLS. as the root
 I havent performed this as i am holding out for DoT on the root servers. I do not trust cloudflare/anyone with my DNS traffic.
 
 
-Update the certificates with: sudo update-ca-certificates
+Update the certificates with: 
+
+`<addr>`sudo update-ca-certificates
 
 Modify the configuration file /etc/unbound/unbound.conf as follows:
 
@@ -179,9 +187,11 @@ forward-zone:
 ####The above IP is for cloudflare.
 #The above port is for CLOUDFLARE
 
-Test with dig @::1 -p 853 google.com or any other site that supports DoT
+Test with 
 
-dig @::1 -p 853 google.com
+`<addr>`dig @::1 -p 853 google.com or any other site that supports DoT
+
+`<addr>`dig @::1 -p 853 google.com
 
 
 Check DNS-Traffic
