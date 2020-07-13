@@ -1,4 +1,4 @@
-so this post was copied from https://docs.pi-hole.net/guides/unbound/ in the event it is unlisted/removed. this will be updated in response to any pihole version changes as people i personnaly know depend on these instructions. I have recently modified this using terminology others may find helpful when being instructed on how DNS works.
+I have recently modified this using terminology others may find helpful when being instructed on how DNS works.
 
 additionally. reason you should use DoT and not DoH for your DNSSEC:
 https://www.zdnet.com/article/dns-over-https-causes-more-problems-than-it-solves-experts-say/
@@ -159,7 +159,9 @@ source: https://docs.pi-hole.net/guides/unbound/
 Just to re iterate, this method does not enable DNS over TLS. The root servers do not support TLS at this time. project link below.
 https://datatracker.ietf.org/wg/dprive/about/
 
-#####WIP
+
+#WIP.
+{: .alert .alert-gitlab-orange}
 This next section will have you enable a forwarder for DNS over TLS. as the root servers do not support TLS at this time.
 I havent performed this as i am holding out for DoT on the root servers. I do not trust cloudflare/anyone with my DNS traffic.
 
