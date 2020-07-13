@@ -161,11 +161,11 @@ https://datatracker.ietf.org/wg/dprive/about/
 
 
 <div class="panel panel-gitlab-orange">
-**Heading**
+WIP
 {: .panel-heading}
 <div class="panel-body">
 
-WIP.
+Below is a work in progress.
 
 </div>
 </div>
