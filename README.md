@@ -161,11 +161,10 @@ https://datatracker.ietf.org/wg/dprive/about/
 
 
 ><div class="panel panel-warning">
->**Warning**
->{: .panel-heading}
+
 ><div class="panel-body">
 
->WARNING DESCRIPTION
+>Below is a work in progress.
 
 ></div>
 ></div>
