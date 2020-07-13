@@ -36,9 +36,13 @@ A recursive server is usually your ISP's DNS server. It is what your system cont
 seems confusing. It is why i provided the visual above the paragraph. A more specific step by step one below.
 
 Your system > local resolver
+
 local resolver > root server provides an answer to a TLD
+
 local resolver > TLD which provides Authoratative server information
+
 local resolver > Authoratative which provides IP address information
+
 local resolver > Your system
 
 Graphic edited. From cloudflare.
