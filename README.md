@@ -160,15 +160,15 @@ Just to re iterate, this method does not enable DNS over TLS. The root servers d
 https://datatracker.ietf.org/wg/dprive/about/
 
 
-<div class="panel panel-warning">
-**Warning**
-{: .panel-heading}
-<div class="panel-body">
+><div class="panel panel-warning">
+>**Warning**
+>{: .panel-heading}
+><div class="panel-body">
 
-WARNING DESCRIPTION
+>WARNING DESCRIPTION
 
-</div>
-</div>
+></div>
+></div>
 
 This next section will have you enable a forwarder for DNS over TLS. as the root servers do not support TLS at this time.
 I havent performed this as i am holding out for DoT on the root servers. I do not trust cloudflare/anyone with my DNS traffic.
