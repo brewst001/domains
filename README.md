@@ -162,7 +162,8 @@ source: https://docs.pi-hole.net/guides/unbound/
 
 Just to re iterate, this method does not enable DNS over TLS. The root servers do not support TLS at this time. project link below.
 https://datatracker.ietf.org/wg/dprive/about/
-
+<br>
+<br>
 
 ><div class="panel panel-warning">
 
@@ -172,7 +173,8 @@ https://datatracker.ietf.org/wg/dprive/about/
 
 ></div>
 ></div>
-
+<br>
+<br>
 This next section will have you enable a forwarder for DNS over TLS. as the root servers do not support TLS at this time.
 I havent performed this as i am holding out for DoT on the root servers. I do not trust cloudflare/anyone with my DNS traffic.
 
