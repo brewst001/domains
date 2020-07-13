@@ -35,42 +35,38 @@ Your local resolver will then cache that data for a specific amount of time. You
 
 seems confusing. It is why i provided the visual above the paragraph. A more specific step by step one below.
 
-Your system > local resolver
-
-local resolver > root server provides an answer to a TLD
-
-local resolver > TLD which provides Authoratative server information
-
-local resolver > Authoratative which provides IP address information
-
-local resolver > Your system
-
-Graphic edited. From cloudflare.
+Your system > local resolver<br>
+local resolver > root server provides an answer to a TLD<br>
+local resolver > TLD which provides Authoratative server information<br>
+local resolver > Authoratative which provides IP address information<br>
+local resolver > Your system<br>
+Graphic edited. From cloudflare.<br>
 
 ![DNS Tree](https://i.imgur.com/LohDSeF.png)
 
-What does this guide provide?
+What does this guide provide?<br>
 This guide provides instructions on how to setup your own local resolver using the device you already use for the Pi-Hole software. If you are starting fresh, I find starting with unbound before installing Pi-Hole is easier.
 
 This guide assumes a fairly recent Debian/Ubuntu based system and will use the maintainer provided packages for installation to make it an incredibly simple process. It assumes only very basic knowledge of how DNS works.
 
 A standard Pi-hole installation will do it as follows:
 
-Your client asks the Pi-hole Who is github_com?
-Your Pi-hole will check its cache and reply if the answer is already known.(which could include the block result)
-Your Pi-hole will check the blocking lists and reply if the domain is blocked.(if unknown and not cahced)
-Since neither 2. nor 3. is true in our example, the Pi-hole forwards the request to the configured external upstream DNS server(s).
-Upon receiving the answer, your Pi-hole will reply to your client and tell it the answer of its request.
-Lastly, your Pi-hole will save the answer in its cache to be able to respond faster if any of your clients queries the same domain again.
-After you set up your Pi-hole as described in this guide, this procedure changes notably:
+Your client asks the Pi-hole Who is github_com?<br>
+Your Pi-hole will check its cache and reply if the answer is already known.(which could include the block result)<br>
+Your Pi-hole will check the blocking lists and reply if the domain is blocked.(if unknown and not cahced)<br>
+Since neither 2. nor 3. is true in our example, the Pi-hole forwards the request to the configured external upstream DNS server(s).<br>
+Upon receiving the answer, your Pi-hole will reply to your client and tell it the answer of its request.<br>
+Lastly, your Pi-hole will save the answer in its cache to be able to respond faster if any of your clients queries the same domain again.<br>
+After you set up your Pi-hole as described in this guide, this procedure changes notably:<br>
 
 Having a local resolver works like talked about before, but having Pi-Hole installed adds a few steps talked about directly above this line.
 
-Benefit: Privacy - as you're directly contacting the responsive servers, no server can fully log the exact paths you're going, as e.g. the Google DNS servers will only be asked if you want to visit a Google website, but not if you visit the website of your favorite newspaper, etc. Remember, as the whole path to the authoratative server is not encrypted, Your ISP can still observe this traffic if they chose to do so. Hiring personnel to do this is unfeasable, but with the advent of better AI platforms, it will get easier for them to do so if they so choose.
+Benefit: Privacy - as you're directly contacting the responsive servers, no server can fully log the exact paths you're going, as e.g. the Google DNS servers will only be asked if you want to visit a Google website, but not if you visit the website of your favorite newspaper, etc. Remember, as the whole path to the authoratative server is not encrypted, Your ISP can still observe this traffic if they chose to do so.<br>
+Hiring personnel to do this is unfeasable, but with the advent of better AI platforms, it will get easier for them to do so if they so choose.
 
 Drawback: Traversing the path may be slow, especially for the first time you visit a website. By slow, I mean usually around one second instead of a few miliseconds. Most commonly used sites are cached in several locations.
 
-Setting up Pi-hole as a recursive DNS server solution
+Setting up Pi-hole as a recursive DNS server solution<br>
 We will use unbound, a secure open source recursive DNS server primarily developed by NLnet Labs, VeriSign Inc., Nominet, and Kirei. The first thing you need to do is to install the recursive DNS resolver:
 
 
@@ -86,10 +82,10 @@ Configure unbound
 
 #Highlights:
 
-Listen only for queries from the local Pi-hole installation (on port 5353)
-Listen for both UDP and TCP requests
-Verify DNSSEC signatures, discarding BOGUS domains
-Apply a few security and privacy tricks
+Listen only for queries from the local Pi-hole installation (on port 5353)<br>
+Listen for both UDP and TCP requests<br>
+Verify DNSSEC signatures, discarding BOGUS domains<br>
+Apply a few security and privacy tricks<br>
 
 This next section has you edit the file loacted at: /etc/unbound/unbound.conf.d/pi-hole.conf
 
