@@ -1,11 +1,14 @@
 I have recently modified this using terminology others may find helpful when being instructed on how DNS works.
-<br>
+
+
 Additionally, reason you should use DoT and not DoH for your DNSSEC:
 https://www.zdnet.com/article/dns-over-https-causes-more-problems-than-it-solves-experts-say/
 <br>
 <br>
+<br>
 An additional note to the original post. 
 ==========================================
+<br>
 With the ever growing security risks imposed by DNS poisoning and bad domains out there, it is very beneficial from a security standpoint to run and maintain your own DNS and DNS blacklist. This can help prevent tracking and redirects to malicious domains such as scareware or c2 servers that resolve to domain names.
 <br>
 <br>
