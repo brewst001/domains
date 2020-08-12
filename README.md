@@ -1,59 +1,68 @@
 I have recently modified this using terminology others may find helpful when being instructed on how DNS works.
-
+<br>
 additionally. reason you should use DoT and not DoH for your DNSSEC:
 https://www.zdnet.com/article/dns-over-https-causes-more-problems-than-it-solves-experts-say/
-
-
+<br>
+<br>
 An additional note to the original post. 
 ==========================================
 With the ever growing security risks imposed by DNS poisoning and bad domains out there, it is very beneficial from a security standpoint to run and maintain your own DNS and DNS blacklist. This can help prevent tracking and redirects to malicious domains such as scareware or c2 servers that resolve to domain names.
-
-addition: With cloud hosting being the norm, it is more beneficial to block via domain instead of an IP address. What was once a malicious domain today is Gmail tomorrow. A good resource to test this is `https://www.threatminer.org/index.php`
-
-
-
-
-
+<br>
+<br>
+Addition: With cloud hosting being the norm, it is more beneficial to block via domain instead of an IP address. What was once a malicious domain today is Gmail tomorrow. A good resource to test this is `https://www.threatminer.org/index.php`
+<br>
+<br>
+<br>
+<br>
+<br>
 Pi-hole as All-Around DNS Solution
 The problem: You can't trust anyone.
-
-
+<br>
+<br>
 Pi-hole is a tool used to prevent netowrk traffic from traversing to domains you specify. This mainly consists of advertisement and tracking domains, by default.
-
+<br>
+<br>
 Furthermore, from the point of an attacker, the DNS servers of larger providers are very worthwhile targets, as they only need to poison one DNS server, but millions of users might be affected. Instead of your bank's actual IP address, you could be sent to a phishing site hosted on some island. This scenario has already happened and it isn't unlikely to happen again...[From source]
-
+<br>
+<br>
 When you operate your own ecursive DNS server, then the likeliness of getting affected by such an attack is greatly reduced. This makes me stress the importance of not having your DNS server publicly visible. An example would be port forwarding. You should never port forward port 53. There is not real reason to ever have to perform this function. This creates a large attack surface for your network and makes you a target.
-
+<br>
+<br>
 What is a recursive DNS server?This can be referred to as a local resolver.
 The usual path is as follows:
-
+<br>
 Your system > local resolver > Root server > TLD(Top Level Domain Server) > Authoratative server
-
+<br>
+<br>
 A recursive server is usually your ISP's DNS server. It is what your system contacts for DNS information. Most users change this to google's 8.8.8.8 without knowing why.<br>
 When you try to go to a domain like github_com, your system will check its local cache to determine if it has IP information for the domain name. If it does not, it will contact whatever it has set to its local resolver. <br>
 If the local resolver has it cached, it will provide your system with that information. If it is not cached, the local resolver will then contact a root DNS server to determine the next server to contact.<br>
 Your local resolver will then contact the top level domain server provided by the root server. The TLD will then direct your local resolver to the proper authoratative server for the domain.<br>
 Your local resolver will contact the authoratative server and then be provided with the IP information. Your local resolver will provide your system with the IP address of the web server's(github_com) IP address.<br>
 Your local resolver will then cache that data for a specific amount of time. Your system may also cache this information.<br>
-
+<br>
 seems confusing. It is why i provided the visual above the paragraph. A more specific step by step one below.
-
+<br>
 Your system > local resolver<br>
 local resolver > root server provides an answer to a TLD<br>
 local resolver > TLD which provides Authoratative server information<br>
 local resolver > Authoratative which provides IP address information<br>
 local resolver > Your system<br>
 Graphic edited. From cloudflare.<br>
-
+<br>
+<br>
 ![DNS Tree](https://i.imgur.com/LohDSeF.png)
-
+<br>
+<br>
 What does this guide provide?<br>
 This guide provides instructions on how to setup your own local resolver using the device you already use for the Pi-Hole software. If you are starting fresh, I find starting with unbound before installing Pi-Hole is easier.
-
+<br>
+<br>
 This guide assumes a fairly recent Debian/Ubuntu based system and will use the maintainer provided packages for installation to make it an incredibly simple process. It assumes only very basic knowledge of how DNS works.
-
+<br>
+<br>
 A standard Pi-hole installation will do it as follows:
-
+<br>
 Your client asks the Pi-hole Who is github_com?<br>
 Your Pi-hole will check its cache and reply if the answer is already known.(which could include the block result)<br>
 Your Pi-hole will check the blocking lists and reply if the domain is blocked.(if unknown and not cahced)<br>
@@ -61,12 +70,12 @@ Since neither 2. nor 3. is true in our example, the Pi-hole forwards the request
 Upon receiving the answer, your Pi-hole will reply to your client and tell it the answer of its request.<br>
 Lastly, your Pi-hole will save the answer in its cache to be able to respond faster if any of your clients queries the same domain again.<br>
 After you set up your Pi-hole as described in this guide, this procedure changes notably:<br>
-
+<br>
 Having a local resolver works like talked about before, but having Pi-Hole installed adds a few steps talked about directly above this line.
-
-Benefit: Privacy - as you're directly contacting the responsive servers, no server can fully log the exact paths you're going, as e.g. the Google DNS servers will only be asked if you want to visit a Google website, but not if you visit the website of your favorite newspaper, etc. Remember, as the whole path to the authoratative server is not encrypted, Your ISP can still observe this traffic if they chose to do so.<br>
+<br>
+Benefit: Privacy - as you're directly contacting the recursive server, no server can fully log the exact paths you're going, as e.g. the Google DNS servers will only be asked if you want to visit a Google website, but not if you visit the website of your favorite newspaper, etc. Remember, as the whole path to the authoratative server is not encrypted, Your ISP can still observe this traffic if they chose to do so.<br>
 Hiring personnel to do this is unfeasable, but with the advent of better AI platforms, it will get easier for them to do so if they so choose.
-
+<br>
 Drawback: Traversing the path may be slow, especially for the first time you visit a website. By slow, I mean usually around one second instead of a few miliseconds. Most commonly used sites are cached in several locations.
 
 Setting up Pi-hole as a recursive DNS server solution<br>
