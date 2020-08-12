@@ -8,6 +8,9 @@ An additional note to the original post.
 ==========================================
 With the ever growing security risks imposed by DNS poisoning and bad domains out there, it is very beneficial from a security standpoint to run and maintain your own DNS and DNS blacklist. This can help prevent tracking and redirects to malicious domains such as scareware or c2 servers that resolve to domain names.
 
+addition: With cloud hosting being the norm, it is more beneficial to block via domain instead of an IP address. What was once a malicious domain today is Gmail tomorrow. A good resource to test this is `https://www.threatminer.org/index.php`
+
+
 
 
 
