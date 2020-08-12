@@ -1,6 +1,6 @@
 I have recently modified this using terminology others may find helpful when being instructed on how DNS works.
 <br>
-additionally. reason you should use DoT and not DoH for your DNSSEC:
+Additionally, reason you should use DoT and not DoH for your DNSSEC:
 https://www.zdnet.com/article/dns-over-https-causes-more-problems-than-it-solves-experts-say/
 <br>
 <br>
