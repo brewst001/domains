@@ -3,7 +3,8 @@
 
 
 I have recently modified this using terminology others may find helpful when being instructed on how DNS works.
-Edit: most likely moving info to another service. Too many issues with github and too many pretentious people when asking for help.
+<br>
+###Edit: most likely moving info to another service. Too many issues with github and too many pretentious people when asking for help.
 
 
 
