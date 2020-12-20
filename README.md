@@ -15,16 +15,13 @@ Addition: With cloud hosting being the norm, it is more beneficial to block via 
 <br>
 <br>
 <br>
-<br>
-<br>
 Pi-hole as All-Around DNS Solution
-The problem: You can't trust anyone.
 <br>
 <br>
 Pi-hole is a tool used to prevent netowrk traffic from traversing to domains you specify. This mainly consists of advertisement and tracking domains, by default.
 <br>
 <br>
-Furthermore, from the point of an attacker, the DNS servers of larger providers are very worthwhile targets, as they only need to poison one DNS server, but millions of users might be affected. Instead of your bank's actual IP address, you could be sent to a phishing site hosted on some island. This scenario has already happened and it isn't unlikely to happen again...[From source]
+Furthermore, from the point of an attacker, the DNS servers of larger providers are very worthwhile targets, as they only need to poison one DNS server, but millions of users might be affected. 
 <br>
 <br>
 When you operate your own ecursive DNS server, then the likeliness of getting affected by such an attack is greatly reduced. This makes me stress the importance of not having your DNS server publicly visible. An example would be port forwarding. You should never port forward port 53. There is not real reason to ever have to perform this function. This creates a large attack surface for your network and makes you a target.
@@ -53,7 +50,7 @@ local resolver > Your system<br>
 Graphic edited. From cloudflare.<br>
 <br>
 <br>
-![DNS Tree](https://i.imgur.com/LohDSeF.png)
+[DNS Tree](https://i.imgur.com/LohDSeF.png)
 <br>
 <br>
 What does this guide provide?<br>
