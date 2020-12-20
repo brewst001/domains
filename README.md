@@ -1,4 +1,7 @@
-# domains
+## Pi-hole as All-Around DNS Solution
+
+
+
 I have recently modified this using terminology others may find helpful when being instructed on how DNS works.
 
 
