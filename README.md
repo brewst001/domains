@@ -1,8 +1,9 @@
 # domains
 I have recently modified this using terminology others may find helpful when being instructed on how DNS works.
 
-element {
+@settings {
   font-size: 12;
+
 
 Additionally, reason you should use DoT(where available) and not DoH for your name resolutions:
 https://www.zdnet.com/article/dns-over-https-causes-more-problems-than-it-solves-experts-say/
