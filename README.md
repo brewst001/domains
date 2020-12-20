@@ -5,7 +5,7 @@ I have recently modified this using terminology others may find helpful when bei
 
 
 <br>
-An additional note to the original post. 
+An additional note to the original post.<br>
 ==========================================
 <br>
 With the ever growing security risks imposed by DNS poisoning and bad domains out there, it is very beneficial from a security standpoint to run and maintain your own DNS and DNS blacklist. This can help prevent tracking and redirects to malicious domains such as scareware or c2 servers that resolve to domain names.
