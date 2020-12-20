@@ -6,7 +6,7 @@ Additionally, reason you should use DoT and not DoH for your DNSSEC:
 https://www.zdnet.com/article/dns-over-https-causes-more-problems-than-it-solves-experts-say/
 <br>
 <br>
-DEC 2020 update: as this guide does not have instructions for DoT to the root servers, expect an update regarding DoQ once information is available.
+DEC 2020 update: as this guide does not have instructions for DoT to the root servers or TLDs, expect an update regarding DoQ once information is available.
 <br>
 An additional note to the original post. 
 ==========================================
