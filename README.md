@@ -3,7 +3,7 @@
 
 
 I have recently modified this using terminology others may find helpful when being instructed on how DNS works.
-
+Edit: most likely moving info to another service. Too many issues with github and too many pretentious people when asking for help.
 
 
 
@@ -55,6 +55,7 @@ Graphic edited. From cloudflare.<br>
 <br>
 ![image](https://user-images.githubusercontent.com/21205883/102703563-8c50d000-422d-11eb-90ab-1c73ced5a503.png)
 <br>
+"as you can see the images arent working so doint be suprised if this is all hosted somewhere easier. like gitlab."
 <br>
 What does this guide provide?<br>
 This guide provides instructions on how to setup your own local resolver using the device you already use for the Pi-Hole software. If you are starting fresh, I find starting with unbound before installing Pi-Hole is easier.
