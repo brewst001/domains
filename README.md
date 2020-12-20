@@ -2,17 +2,8 @@
 I have recently modified this using terminology others may find helpful when being instructed on how DNS works.
 
 
-Additionally, reason you should use DoT(where available) and not DoH for your name resolutions:
-https://www.zdnet.com/article/dns-over-https-causes-more-problems-than-it-solves-experts-say/
-<br>
-<br>
-<font size="4">
-DEC 2020 update: as this guide does not have instructions for DoT to the root servers or TLDs, expect an update regarding DoQ once information is available. This is in response to DoH and DoT being trackable by ISPs and orgs which host local resolvers.(google, cloudflare, etc.)
-</font>
-<br>
-<font size="4">
-https://www.zdnet.com/article/ad-blocker-adguard-deploys-worlds-first-dns-over-quic-resolver/#:~:text=DNS%2Dover%2DQUIC%2C%20or,protocol%2C%20even%20DoH%20and%20DoT.&text=AdGuard%27s%20DoQ%20resolver%20will%20work,new%20QUIC%20data%20transfer%20protocol.
-</font>
+
+
 <br>
 An additional note to the original post. 
 ==========================================
