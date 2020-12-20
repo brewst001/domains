@@ -50,7 +50,7 @@ local resolver > Your system<br>
 Graphic edited. From cloudflare.<br>
 <br>
 <br>
-[DNS Tree](https://i.imgur.com/LohDSeF.png)
+[DNS Tree]https://i.imgur.com/LohDSeF.png
 <br>
 <br>
 What does this guide provide?<br>
