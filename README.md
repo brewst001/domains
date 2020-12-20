@@ -4,7 +4,7 @@
 
 I have recently modified this using terminology others may find helpful when being instructed on how DNS works.
 <br>
-###Edit: most likely moving info to another service. Too many issues with github and too many pretentious people when asking for help.
+### Edit: most likely moving info to another service. Too many issues with github and too many pretentious people when asking for help.
 
 
 
@@ -52,7 +52,7 @@ local resolver > TLD which provides Authoratative server information<br>
 local resolver > Authoratative which provides IP address information<br>
 local resolver > Your system<br>
 Graphic edited. From cloudflare.<br>
-![DNS_IMAGE](https://i.imgur.com/LohDSeF.png)
+![DNS_IMAGE] (https://i.imgur.com/LohDSeF.png)
 <br>
 ![image](https://user-images.githubusercontent.com/21205883/102703563-8c50d000-422d-11eb-90ab-1c73ced5a503.png)
 <br>
